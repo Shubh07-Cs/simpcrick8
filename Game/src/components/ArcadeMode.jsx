@@ -41,51 +41,9 @@ const countries = [
   { name: "Sri Lanka", color: "royalblue", teamName: "Sri Lanka" },
 ];
 
-const calculateNextBallSpeed = (runsNeeded, ballsLeft, profile) => {
-  const rrr = ballsLeft <= 0 ? runsNeeded : runsNeeded / ballsLeft;
-
-  // Default weights: [SLOW, MEDIUM, MEDIUM_FAST, FAST]
-  let weights = [0.25, 0.25, 0.25, 0.25];
-
-  // Adjust weights based on Run Rate Required (Pressure)
-  if (rrr < 1.5) {
-    // Low pressure: Mostly Slow/Medium
-    weights = [0.4, 0.4, 0.15, 0.05];
-  } else if (rrr < 3.0) {
-    // Medium pressure: Mix of Medium/Medium-Fast
-    weights = [0.15, 0.35, 0.35, 0.15];
-  } else if (rrr < 4.5) {
-    // High pressure: Mostly Medium-Fast/Fast
-    weights = [0.05, 0.2, 0.4, 0.35];
-  } else {
-    // Extreme pressure: Mostly Fast
-    weights = [0.0, 0.1, 0.3, 0.6];
-  }
-
-  // Adjust for AI Aggression (shift weights slightly towards faster speeds)
-  if (profile.aggression > 0.7) {
-    // Shift some weight from slower to faster
-    weights[0] = Math.max(0, weights[0] - 0.1);
-    weights[3] = Math.min(1, weights[3] + 0.1);
-  }
-
-  // Normalize weights to ensure they sum to 1 (approx)
-  const totalWeight = weights.reduce((a, b) => a + b, 0);
-  const normalizedWeights = weights.map(w => w / totalWeight);
-
-  // Select speed based on weights
-  const random = Math.random();
-  let cumulativeWeight = 0;
+const calculateNextBallSpeed = () => {
   const speeds = ["SLOW", "MEDIUM", "MEDIUM_FAST", "FAST"];
-
-  for (let i = 0; i < speeds.length; i++) {
-    cumulativeWeight += normalizedWeights[i];
-    if (random < cumulativeWeight) {
-      return speeds[i];
-    }
-  }
-
-  return "MEDIUM"; // Fallback
+  return getRandomItem(speeds);
 };
 
 export default function ArcadeGame() {
@@ -152,8 +110,14 @@ export default function ArcadeGame() {
     const profile = aiProfiles[profileKey];
     const ballsRemaining = randomInRange(profile.minBalls, profile.maxBalls);
     const baseTarget = Math.ceil(ballsRemaining * 6 * profile.aggression);
-    const calculatedTarget = Math.max(10, baseTarget + randomInRange(3, 12));
-    // Cap target score so it's theoretically achievable (max 6 runs per ball)
+
+    // New Logic: Randomize RRR between 2.5 and 6.0
+    const minRRR = 2.5;
+    const maxRRR = 6.0;
+    const randomRRR = Math.random() * (maxRRR - minRRR) + minRRR;
+
+    // Calculate target based on RRR, ensuring it's at least 10 and max 6 runs/ball
+    const calculatedTarget = Math.max(10, Math.ceil(ballsRemaining * randomRRR));
     const targetScore = Math.min(ballsRemaining * 6, calculatedTarget);
     const initialSpeed = calculateNextBallSpeed(targetScore, ballsRemaining, profile);
 
