@@ -1,5 +1,5 @@
 .arcade-container {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.35), transparent),
         radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.25), transparent),
@@ -10,7 +10,9 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    overflow: hidden;
+    /* Allow scrolling if content overflows */
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
@@ -268,7 +270,8 @@
     flex-wrap: wrap;
     flex-shrink: 0;
     /* Ensure it doesn't take too much space */
-    max-height: 30vh;
+    /* max-height: 30vh; REMOVED to allow flow */
+    margin-bottom: 1rem;
 }
 
 .score-options-container {
@@ -396,6 +399,8 @@
 .play-again-container {
     margin-top: 0.25rem;
     flex-shrink: 0;
+    padding-bottom: 2rem;
+    /* Add padding for scrolling */
 }
 
 .play-again-button {
@@ -422,11 +427,21 @@
 }
 
 @media (max-width: 768px) {
+    .arcade-container {
+        height: auto;
+        /* Allow height to grow */
+        min-height: 100vh;
+        padding: 1rem;
+        overflow-y: auto;
+        /* Enable scrolling */
+    }
+
     .field-layout {
         flex-direction: column;
         align-items: stretch;
-        gap: 0.5rem;
-        flex: 1;
+        gap: 1rem;
+        flex: 0 0 auto;
+        /* Don't force fill */
     }
 
     .field-sidebar {
@@ -434,9 +449,10 @@
         order: 2;
         align-items: center;
         flex: 0 0 auto;
-        /* Don't grow/shrink unexpectedly */
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
+        /* Spread stats */
+        max-width: none;
     }
 
     .field-sidebar.score-panel,
@@ -444,10 +460,23 @@
         align-items: center;
     }
 
+    /* Reorder: Scoreboard top, Field middle, Chase bottom (or side by side) */
+    .field-sidebar.score-panel {
+        order: 1;
+    }
+
+    .cricket-field {
+        order: 2;
+    }
+
+    .field-sidebar.chase-panel {
+        order: 3;
+    }
+
     .adding-help {
         flex-direction: column;
         align-items: stretch;
-        gap: 0.5rem;
+        gap: 1rem;
     }
 
     .help-button-container {
@@ -457,10 +486,10 @@
     }
 
     .cricket-field {
-        /* Give it priority in vertical space */
-        flex: 1;
-        height: auto;
-        min-height: 200px;
+        width: 100%;
+        height: 300px;
+        /* Fixed height for mobile */
+        min-height: 250px;
         max-height: none;
         padding: 0.75rem;
     }
@@ -475,6 +504,9 @@
 }
 
 @media (max-width: 520px) {
+    .match-heading {
+        font-size: 1.2rem;
+    }
 
     .last-play-card,
     .score-options-container {
@@ -503,6 +535,8 @@
     .score-label {
         font-size: 0.6rem;
     }
-}
 
-/* Removed the max-height overflow-y: auto rule to enforce single screen */
+    .cricket-field {
+        height: 250px;
+    }
+}
