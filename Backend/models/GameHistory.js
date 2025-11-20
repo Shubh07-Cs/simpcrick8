@@ -1,11 +1,7 @@
 const mongoose = require("mongoose"); // Helps interact with MongoDB
 
 const gameHistorySchema = new mongoose.Schema({
-    playerName: {  
-        type: String,
-        required: true,
-        unique: true,  
-    },
+
     myTeam: {
         type: String,
         required: true

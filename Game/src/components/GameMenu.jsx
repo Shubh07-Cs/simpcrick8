@@ -13,7 +13,7 @@ export default function GameMenu() {
   useEffect(() => {
     const fetchGameHistory = async () => {
       try {
-        const response = await fetch("https://simpcrick8-backend.onrender.com/game-history/last-three")
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/game-history/last-three`)
         const data = await response.json()
 
         if (data.success) {
@@ -29,38 +29,38 @@ export default function GameMenu() {
     fetchGameHistory()
   }, [])
 
-//   useEffect(() => {
-//     const askForName = async () => {
-//         let name = localStorage.getItem("playerName");
+  //   useEffect(() => {
+  //     const askForName = async () => {
+  //         let name = localStorage.getItem("playerName");
 
-//         if (!name) {
-//             while (true) {
-//                 name = prompt("Enter your unique name:");
-//                 if (!name) {
-//                     alert("Name is required!");
-//                     continue;
-//                 }
+  //         if (!name) {
+  //             while (true) {
+  //                 name = prompt("Enter your unique name:");
+  //                 if (!name) {
+  //                     alert("Name is required!");
+  //                     continue;
+  //                 }
 
-//                 // Check if name is unique
-//                 const response = await fetch(`https://simpcrick8-backend.onrender.com/check-name/${name}`);
-//                 const data = await response.json();
+  //                 // Check if name is unique
+  //                 const response = await fetch(`https://simpcrick8-backend.onrender.com/check-name/${name}`);
+  //                 const data = await response.json();
 
-//                 if (!data.success) {
-//                     alert("This name is already taken. Choose another.");
-//                 } else {
-//                     localStorage.setItem("playerName", name);
-//                     setPlayerName(name);
-//                     alert(`Your name is set to: ${name}`);
-//                     break;
-//                 }
-//             }
-//         } else {
-//             setPlayerName(name);
-//         }
-//     };
+  //                 if (!data.success) {
+  //                     alert("This name is already taken. Choose another.");
+  //                 } else {
+  //                     localStorage.setItem("playerName", name);
+  //                     setPlayerName(name);
+  //                     alert(`Your name is set to: ${name}`);
+  //                     break;
+  //                 }
+  //             }
+  //         } else {
+  //             setPlayerName(name);
+  //         }
+  //     };
 
-//     askForName();
-// }, []);
+  //     askForName();
+  // }, []);
 
   return (
     <div className="game-menu-container">
@@ -99,14 +99,14 @@ export default function GameMenu() {
           <button className="settings-button">
             <Settings className="w-8 h-8" />
           </button>
-         
+
         </div>
       </div>
 
       {/* History Button (NEW) */}
       <button className="history-button" onClick={() => setShowHistory(!showHistory)}>
-  📜
-</button>
+        📜
+      </button>
       {showHistory && (
         <div className="game-history-dropdown">
           <h3 className="game-history-title">Last 5 Games</h3>
@@ -117,7 +117,7 @@ export default function GameMenu() {
               {gameHistory.map((game, index) => {
                 const isWin = game.currentScore >= game.targetScore
                 const resultClass = isWin ? "win-result" : "lose-result"
-            
+
                 return (
                   <li key={index} className="game-history-item">
                     <strong>{game.myTeam}</strong> vs <strong>{game.opponentTeam}</strong>

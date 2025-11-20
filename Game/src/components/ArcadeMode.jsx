@@ -15,7 +15,7 @@ import {
 
 const saveGameHistory = async (gameData) => {
   try {
-    const response = await fetch("https://simpcrick8-backend.onrender.com/game-history/save", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/game-history/save`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
