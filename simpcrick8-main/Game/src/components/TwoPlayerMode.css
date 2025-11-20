@@ -1,0 +1,341 @@
+.two-player-shell {
+    min-height: 100vh;
+    background: radial-gradient(circle at 10% 20%, rgba(147, 197, 253, 0.25), transparent),
+        radial-gradient(circle at 90% 20%, rgba(248, 113, 113, 0.2), transparent),
+        #040f1a;
+    padding: 2rem 1rem 4rem;
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.tp-header {
+    width: min(1100px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tp-header h1 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tp-home,
+.tp-reset {
+    border: none;
+    padding: 0.65rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.12);
+    color: #f8fafc;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tp-home:hover,
+.tp-reset:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tp-name-editor {
+    width: min(700px, 100%);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.tp-name-editor label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(248, 250, 252, 0.75);
+}
+
+.tp-name-editor input {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 23, 42, 0.6);
+    color: #f8fafc;
+    padding: 0.55rem 0.75rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.tp-scoreboard {
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.tp-score-card {
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    padding: 1rem 1.2rem;
+    background: rgba(15, 23, 42, 0.7);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.tp-score-card.active {
+    border-width: 3px;
+    box-shadow: 0 0 25px rgba(248, 250, 252, 0.18);
+}
+
+.tp-score-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tp-score-card__title .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.tp-score-card__score {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.tp-score-card__meta {
+    font-size: 0.9rem;
+    color: rgba(248, 250, 252, 0.7);
+}
+
+.tp-status-card {
+    width: min(600px, 100%);
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 24px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
+}
+
+.tp-status-card p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.tp-status-card span {
+    color: rgba(248, 250, 252, 0.75);
+}
+
+.tp-balls,
+.tp-pace {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+}
+
+.tp-field {
+    position: relative;
+    width: min(460px, 92vw);
+    height: 460px;
+    background: linear-gradient(135deg, #14532d, #65a30d);
+    border-radius: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.tp-pitch {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.tp-batter,
+.tp-bowler {
+    width: 52px;
+    height: 80px;
+    border-radius: 14px;
+    box-shadow: 0 14px 25px rgba(0, 0, 0, 0.35);
+}
+
+.tp-ball-flight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tp-ball-value {
+    width: 58px;
+    height: 74px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tp-result-banner {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(3, 7, 18, 0.85);
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tp-strip {
+    width: min(1100px, 100%);
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 30px;
+    padding: 1.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08), 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.tp-strip-pointer {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    border-radius: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.3), rgba(248, 250, 252, 0.05));
+    pointer-events: none;
+    transition: left 0.2s ease;
+    box-shadow: 0 0 18px rgba(248, 250, 252, 0.45);
+}
+
+.tp-strip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 0.75rem;
+}
+
+.tp-strip-cell {
+    min-height: 110px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.35);
+}
+
+.tp-strip-cell span {
+    font-size: 2rem;
+}
+
+.tp-strip-cell small {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.tp-strip-cell.orange {
+    background: linear-gradient(145deg, #f97316, #fbbf24);
+}
+
+.tp-strip-cell.yellow {
+    background: linear-gradient(145deg, #fcd34d, #fde68a);
+}
+
+.tp-strip-cell.blue {
+    background: linear-gradient(145deg, #2563eb, #38bdf8);
+    color: #e0f2fe;
+}
+
+.tp-strip-cell.emerald {
+    background: linear-gradient(145deg, #10b981, #34d399);
+}
+
+.tp-strip-cell.red {
+    background: linear-gradient(145deg, #ef4444, #f87171);
+    color: #fee2e2;
+}
+
+.tp-strip-cell.gray {
+    background: linear-gradient(145deg, #94a3b8, #cbd5f5);
+}
+
+.tp-strip-cell.pink {
+    background: linear-gradient(145deg, #ec4899, #f472b6);
+}
+
+.tp-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tp-actions button {
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(120deg, #fb923c, #facc15);
+    color: #0f172a;
+}
+
+.tp-actions button.ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #f8fafc;
+}
+
+.tp-need-note {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .tp-score-card__score {
+        font-size: 2.1rem;
+    }
+
+    .tp-strip-grid {
+        grid-template-columns: repeat(2, minmax(110px, 1fr));
+    }
+}
+

@@ -1,0 +1,157 @@
+/* ChooseCountry.css (Updated with Creativity) */
+.choose-country-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(180deg, #0d1b2a, #f1faee); /* Cricket field-inspired gradient */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Cricket Ball in Background */
+.cricket-ball {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #ff0000; /* Red cricket ball */
+  border-radius: 50%;
+  top: 10%;
+  left: -50px; /* Start off-screen */
+  animation: rollBall 8s infinite linear;
+}
+
+/* Title Styling */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.title::after {
+  content: "🏏"; /* Cricket bat emoji */
+  position: absolute;
+  font-size: 1.5rem;
+  top: -10px;
+  right: -40px;
+  animation: swingBat 2s infinite alternate;
+}
+
+/* Country Slider Container */
+.country-slider-container {
+  width: 90%;
+  max-width: 1000px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+/* Country Slider */
+.country-slider {
+  display: flex;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+
+/* Country Option Cards */
+.country-option {
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 50%; /* Circular cards */
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  text-align: center;
+}
+
+.country-option:hover:not(.selected) {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.country-option.selected {
+  border: 3px solid #ffffff;
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Color Classes */
+.blue { background-color: blue; }
+.green { background-color: green; }
+.yellow { background-color: yellow; color: black; }
+.skyblue { background-color: skyblue; }
+.black { background-color: black; }
+.maroon { background-color: maroon; }
+.darkgreen { background-color: darkgreen; }
+.royalblue { background-color: royalblue; }
+
+/* Scrollbar Styling */
+.country-slider-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.country-slider-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.country-slider-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Play Button */
+.play-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #ccc; /* Disabled state */
+  border: none;
+  border-radius: 25px; /* Rounded pill shape */
+  cursor: default;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.play-button.active {
+  background-color: #ff4500; /* Orange when enabled */
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff4500;
+}
+
+.play-button.active:hover {
+  background-color: #ff5722;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff5722;
+}
+
+/* Animations */
+@keyframes rollBall {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(110vw) rotate(720deg); }
+  100% { transform: translateX(110vw) rotate(720deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes swingBat {
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(10deg); }
+}

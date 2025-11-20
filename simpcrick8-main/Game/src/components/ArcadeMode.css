@@ -1,0 +1,508 @@
+.arcade-container {
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.35), transparent),
+        radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.25), transparent),
+        #0d3b15;
+    padding: clamp(0.5rem, 1.5vw, 1rem);
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.header {
+    width: min(1100px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    padding-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.home-link {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.field-layout {
+    width: min(1080px, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    flex-wrap: nowrap;
+    flex: 1;
+    min-height: 0;
+    /* Important for flex nested scrolling/sizing */
+}
+
+.field-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 0 0 clamp(160px, 18vw, 220px);
+}
+
+.field-sidebar.score-panel {
+    align-items: flex-end;
+}
+
+.field-sidebar.chase-panel {
+    align-items: flex-start;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-card.duo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.stat-card.duo>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-card.scoreboard {
+    text-align: center;
+}
+
+.stat-card.highlight {
+    background: rgba(16, 185, 129, 0.18);
+    border-color: rgba(16, 185, 129, 0.35);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stat-sub {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.home-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: #0d3b15;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.match-heading {
+    font-size: clamp(1rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.score-display {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.cricket-field {
+    position: relative;
+    width: min(360px, 70vw);
+    /* Make height flexible but constrained */
+    height: 100%;
+    max-height: 400px;
+    min-height: 250px;
+    background: linear-gradient(135deg, #d4b996, #c29d74);
+    border-radius: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+    border: 3px solid rgba(255, 255, 255, 0.15);
+}
+
+.pitch {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.batsman,
+.bowler {
+    width: 40px;
+    height: 60px;
+    border-radius: 12px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+}
+
+.ball-centering-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.ball-container {
+    /* Position handled by wrapper now */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-display-animation {
+    width: 50px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.game-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    letter-spacing: 0.04em;
+}
+
+.last-play-card {
+    width: min(700px, 100%);
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 16px;
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.last-play-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.last-play-card p {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.speed-indicator {
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.adding-help {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    /* Ensure it doesn't take too much space */
+    max-height: 30vh;
+}
+
+.score-options-container {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08), 0 15px 30px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.pointer {
+    position: absolute;
+    top: 0.6rem;
+    bottom: 0.6rem;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.45);
+    pointer-events: none;
+    transition: left 0.18s ease;
+}
+
+.score-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.score-button {
+    min-height: 80px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a;
+    text-align: center;
+    padding: 0.4rem;
+    font-weight: 700;
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+}
+
+.score-value {
+    font-size: 1.5rem;
+}
+
+.score-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+}
+
+.orange {
+    background: linear-gradient(145deg, #f97316, #fbbf24);
+}
+
+.yellow {
+    background: linear-gradient(145deg, #fcd34d, #fde68a);
+}
+
+.blue {
+    background: linear-gradient(145deg, #2563eb, #38bdf8);
+    color: #eef2ff;
+}
+
+.emerald {
+    background: linear-gradient(145deg, #10b981, #34d399);
+}
+
+.red {
+    background: linear-gradient(145deg, #ef4444, #f87171);
+    color: #fee2e2;
+}
+
+.gray {
+    background: linear-gradient(145deg, #94a3b8, #cbd5f5);
+}
+
+.pink {
+    background: linear-gradient(145deg, #ec4899, #f472b6);
+}
+
+.help-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.help-button {
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: rgba(15, 23, 42, 0.75);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.help-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.popup {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    max-width: 200px;
+}
+
+.play-again-container {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.play-again-button {
+    background: linear-gradient(120deg, #f97316, #fb7185);
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 20px 35px rgba(249, 115, 22, 0.4);
+}
+
+@media (max-width: 900px) {
+    .field-sidebar {
+        flex: 1 1 180px;
+        max-width: 220px;
+    }
+
+    .score-options {
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .field-layout {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        flex: 1;
+    }
+
+    .field-sidebar {
+        width: 100%;
+        order: 2;
+        align-items: center;
+        flex: 0 0 auto;
+        /* Don't grow/shrink unexpectedly */
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .field-sidebar.score-panel,
+    .field-sidebar.chase-panel {
+        align-items: center;
+    }
+
+    .adding-help {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .help-button-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cricket-field {
+        /* Give it priority in vertical space */
+        flex: 1;
+        height: auto;
+        min-height: 200px;
+        max-height: none;
+        padding: 0.75rem;
+    }
+
+    .score-button {
+        min-height: 60px;
+    }
+
+    .last-play-card {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .last-play-card,
+    .score-options-container {
+        width: 100%;
+    }
+
+    .pointer {
+        top: 0.4rem;
+        bottom: 0.4rem;
+    }
+
+    .score-options {
+        grid-template-columns: repeat(2, minmax(70px, 1fr));
+        gap: 0.4rem;
+    }
+
+    .score-button {
+        min-height: 60px;
+        font-size: 0.85rem;
+    }
+
+    .score-value {
+        font-size: 1.25rem;
+    }
+
+    .score-label {
+        font-size: 0.6rem;
+    }
+}
+
+/* Removed the max-height overflow-y: auto rule to enforce single screen */
